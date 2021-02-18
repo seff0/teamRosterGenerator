@@ -1,34 +1,18 @@
 const inquirer = require("inquirer");
 const Manager = require("./lib/manager");
-const Employee = require("./lib/employee");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
-// initialize inquirer
+const manager = new Manager();
 
-function managerPrompt() {
+manager
+  .createManager()
+
+  .then(console.log(manager.createManager().response));
+
+function newEmployee() {
   inquirer
     .prompt([
-      {
-        type: "input",
-        message: "What is the manager's name for this team?",
-        name: "managerName",
-      },
-      {
-        type: "input",
-        message: "Enter the managers' employee ID.",
-        name: "managerID",
-      },
-      {
-        type: "input",
-        message: "Enter the manager's email address.",
-        name: "managerEmail",
-      },
-      {
-        type: "input",
-        message: "Enter the office number.",
-        name: "managerName",
-      },
       {
         type: "list",
         choices: ["Engineer", "Intern", "I am done adding team members."],
@@ -38,21 +22,13 @@ function managerPrompt() {
     ])
     .then((response) => {
       if (response.moreMembers === "Engineer") {
-        engineerPrompt();
+        const engineer = new Engineer();
+        engineer.createEngineer();
       } else if (response.moreMembers === "Intern") {
-        internPrompt();
+        const intern = new Intern();
+        intern.createIntern();
       } else {
         createHTML();
       }
     });
 }
-
-function engineerPrompt() {
-  console.log("make an engineer");
-}
-
-function internPrompt() {
-  console.log("make an intern");
-}
-
-managerPrompt();
