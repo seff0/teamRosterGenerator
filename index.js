@@ -149,7 +149,7 @@ function createEngineer() {
           <ul class="list-group">
             <li class="list-group-item">ID: ${engineer.id}</li>
             <li class="list-group-item"><a href="mailto: ${engineer.email}" class='btn btn-secondary' target="_blank">Email: ${engineer.email}</a></li>
-            <li class="list-group-item"><a href="https://github.com/${engineer.gitHub} class='btn btn-secondary'>GitHub: ${engineer.gitHub}</a></li>
+            <li class="list-group-item"><a href="https://github.com/${engineer.gitHub}" class='btn btn-secondary'>GitHub: ${engineer.gitHub}</a></li>
           </ul>
         </div>
       </div>`;
