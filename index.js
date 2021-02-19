@@ -3,16 +3,29 @@ const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
-const manager = new Manager();
-
-manager
-  .createManager()
-
-  .then(console.log(manager.createManager().response));
-
-function newEmployee() {
+function createEmployee() {
   inquirer
     .prompt([
+      {
+        type: "input",
+        message: "What is the manager's name?",
+        name: "managerName",
+      },
+      {
+        type: "input",
+        message: "Enter the manager's employee ID.",
+        name: "managerID",
+      },
+      {
+        type: "input",
+        message: "Enter the manager's email address.",
+        name: "managerEmail",
+      },
+      {
+        type: "input",
+        message: "Enter the office number.",
+        name: "managerName",
+      },
       {
         type: "list",
         choices: ["Engineer", "Intern", "I am done adding team members."],
@@ -22,11 +35,9 @@ function newEmployee() {
     ])
     .then((response) => {
       if (response.moreMembers === "Engineer") {
-        const engineer = new Engineer();
-        engineer.createEngineer();
+        createEngineer();
       } else if (response.moreMembers === "Intern") {
-        const intern = new Intern();
-        intern.createIntern();
+        createIntern();
       } else {
         createHTML();
       }
