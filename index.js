@@ -2,6 +2,40 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
+const fs = require("fs");
+
+let htmlData = ``;
+
+function createHTML(htmlData) {
+  return `<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Team Roster</title>
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous"
+        />
+      </head>
+      <body>
+        <nav class="navbar navbar-light bg-light">
+          <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">My Team</span>
+          </div>
+        </nav>
+
+        <div class="container">
+          <div class="row">
+          ${htmlData}
+          </div>
+        </div>
+      </body>
+    </html>`;
+}
 
 function createManager() {
   inquirer
@@ -34,12 +68,34 @@ function createManager() {
       },
     ])
     .then((response) => {
+      const manager = new Manager(
+        response.managerName,
+        response.managerID,
+        response.managerEmail,
+        response.managerOffice
+      );
+
+      let newData = `<div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">${manager.name}</h5>
+          <svg class="bi" width="32" height="32" fill="currentColor">
+            <use xlink:href="bootstrap-icons.svg#heart-fill" />
+          </svg>
+          <h6 class="card-subtitle mb-2">Manager</h6>
+          <ul class="list-group">
+            <li class="list-group-item">ID: ${manager.id}</li>
+            <li class="list-group-item"><a href="mailto: ${manager.email}" class='btn'>Email: ${manager.email}</a></li>
+            <li class="list-group-item">Office Number: ${manager.officeNum}</li>
+          </ul>
+        </div>
+      </div>`;
+      htmlData += newData;
       if (response.moreMembers === "Engineer") {
         createEngineer();
       } else if (response.moreMembers === "Intern") {
         createIntern();
       } else {
-        createHTML();
+        createHTML(htmlData);
       }
     });
 }
@@ -75,12 +131,34 @@ function createEngineer() {
       },
     ])
     .then((response) => {
+      const engineer = new Engineer(
+        response.engineerName,
+        response.engineerID,
+        response.engineerEmail,
+        response.engineerGitHub
+      );
+
+      let newData = `<div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">${engineer.name}</h5>
+          <svg class="bi" width="32" height="32" fill="currentColor">
+            <use xlink:href="bootstrap-icons.svg#heart-fill" />
+          </svg>
+          <h6 class="card-subtitle mb-2">Engineer</h6>
+          <ul class="list-group">
+            <li class="list-group-item">ID: ${engineer.id}</li>
+            <li class="list-group-item"><a href="mailto: ${engineer.email}" class='btn'>Email: ${engineer.email}</a></li>
+            <li class="list-group-item"><a href="https://github.com/${engineer.gitHub} class='btn'>GitHub: ${engineer.gitHub}</a></li>
+          </ul>
+        </div>
+      </div>`;
+      htmlData += newData;
       if (response.moreMembers === "Engineer") {
         createEngineer();
       } else if (response.moreMembers === "Intern") {
         createIntern();
       } else {
-        createHTML();
+        createHTML(htmlData);
       }
     });
 }
@@ -116,14 +194,41 @@ function createIntern() {
       },
     ])
     .then((response) => {
+      const intern = new Intern(
+        response.internName,
+        response.internID,
+        response.internEmail,
+        response.internSchool
+      );
+      let newData = `<div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">${intern.name}</h5>
+          <svg class="bi" width="32" height="32" fill="currentColor">
+            <use xlink:href="bootstrap-icons.svg#heart-fill" />
+          </svg>
+          <h6 class="card-subtitle mb-2">Intern</h6>
+          <ul class="list-group">
+            <li class="list-group-item">ID: ${intern.id}</li>
+            <li class="list-group-item"><a href="mailto: ${intern.email}" class='btn'>Email: ${intern.email}</a></li>
+            <li class="list-group-item">School: ${intern.school}</li>
+          </ul>
+        </div>
+      </div>`;
+      htmlData += newData;
       if (response.moreMembers === "Engineer") {
         createEngineer();
       } else if (response.moreMembers === "Intern") {
         createIntern();
       } else {
-        createHTML();
+        writeHTML(htmlData);
       }
     });
+}
+
+function writeHTML(htmlData) {
+  fs.writeFile("./dist/index.html", createHTML(htmlData), (err) => {
+    err ? console.log(err) : console.log("Success, HTML generated.");
+  });
 }
 
 createManager();
