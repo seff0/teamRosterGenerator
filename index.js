@@ -20,6 +20,7 @@ function createHTML(htmlData) {
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
           crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="style.css" />
       </head>
       <body>
         <nav class="navbar navbar-light bg-light">
@@ -84,7 +85,7 @@ function createManager() {
           <h6 class="card-subtitle mb-2">Manager</h6>
           <ul class="list-group">
             <li class="list-group-item">ID: ${manager.id}</li>
-            <li class="list-group-item"><a href="mailto: ${manager.email}" class='btn'>Email: ${manager.email}</a></li>
+            <li class="list-group-item"><a href="mailto: ${manager.email}" class='btn btn-secondary' target="_blank">Email: ${manager.email}</a></li>
             <li class="list-group-item">Office Number: ${manager.officeNum}</li>
           </ul>
         </div>
@@ -147,8 +148,8 @@ function createEngineer() {
           <h6 class="card-subtitle mb-2">Engineer</h6>
           <ul class="list-group">
             <li class="list-group-item">ID: ${engineer.id}</li>
-            <li class="list-group-item"><a href="mailto: ${engineer.email}" class='btn'>Email: ${engineer.email}</a></li>
-            <li class="list-group-item"><a href="https://github.com/${engineer.gitHub} class='btn'>GitHub: ${engineer.gitHub}</a></li>
+            <li class="list-group-item"><a href="mailto: ${engineer.email}" class='btn btn-secondary' target="_blank">Email: ${engineer.email}</a></li>
+            <li class="list-group-item"><a href="https://github.com/${engineer.gitHub} class='btn btn-secondary'>GitHub: ${engineer.gitHub}</a></li>
           </ul>
         </div>
       </div>`;
@@ -209,7 +210,7 @@ function createIntern() {
           <h6 class="card-subtitle mb-2">Intern</h6>
           <ul class="list-group">
             <li class="list-group-item">ID: ${intern.id}</li>
-            <li class="list-group-item"><a href="mailto: ${intern.email}" class='btn'>Email: ${intern.email}</a></li>
+            <li class="list-group-item"><a href="mailto: ${intern.email}" class='btn btn-secondary' target="_blank">Email: ${intern.email}</a></li>
             <li class="list-group-item">School: ${intern.school}</li>
           </ul>
         </div>
